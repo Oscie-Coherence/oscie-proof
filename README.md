@@ -2,6 +2,7 @@
 
 \usepackage{geometry}
 \geometry{margin=1in}
+
 \usepackage{hyperref}
 \usepackage{setspace}
 \usepackage{listings}
@@ -15,8 +16,9 @@
   breaklines=true
 }
 
-\title{\textbf{Oscie-Proof}\\
+\title{\textbf{Oscie-Proof}\\[4pt]
 \large Operational Coherence Governor for LLM Stability}
+
 \date{}
 
 \begin{document}
@@ -24,62 +26,70 @@
 \maketitle
 \onehalfspacing
 
+%---------------------------------------------------------
 \section*{Overview}
+%---------------------------------------------------------
 
 \textbf{Oscie-Proof} is a lightweight, open-source \emph{Operational Coherence Governor} for large language models.  
-It provides a physics-inspired stability layer that reduces drift, increases long-context reliability, and improves jailbreak resistance without modifying the underlying LLM.
+It provides a physics-inspired stability layer that reduces drift, improves long-context reliability, and increases jailbreak resistance without modifying the underlying LLM.
 
 The architecture is intentionally compact:
 \begin{itemize}
-    \item one coherence scanner (\texttt{oscie.py})
-    \item one evaluation suite (\texttt{OSCIE\_BENCHMARK\_SUITE.py})
+    \item a coherence scanner (\texttt{oscie.py})
+    \item a full evaluation suite (\texttt{OSCIE\_BENCHMARK\_SUITE.py})
     \item optional adapters for external LLM APIs
 \end{itemize}
 
 Oscie-Proof is designed for:
 \begin{itemize}
-    \item reproducible safety testing  
-    \item long-run coherence verification  
-    \item research into synchronization-based governance  
-    \item multi-model orchestration experiments  
+    \item reproducible safety testing
+    \item long-run coherence verification
+    \item research into synchronization-based governance
+    \item multi-model orchestration experiments
 \end{itemize}
 
-This repository is fully public, auditable, and does not contain private models or proprietary datasets.
+This repository is fully public, auditable, and contains no private models or proprietary datasets.
 
+%---------------------------------------------------------
 \section*{Key Concepts}
+%---------------------------------------------------------
 
-Oscie-Proof operationalizes a small set of stability principles inspired by dynamical systems and oscillator networks:
+Oscie-Proof operationalizes a compact set of stability principles inspired by dynamical systems and oscillator networks:
 
 \begin{itemize}
     \item \textbf{Coherence Phase Lifetime (CPL)}:  
     Maximum number of inference steps before semantic drift increases.
 
     \item \textbf{Coupling Vector (CV)}:  
-    Strength of the governor's influence over downstream reasoning chains.
+    Effective influence of the governor over downstream reasoning chains.
 
     \item \textbf{Noise Floor $\Gamma_{\text{noise}}$}:  
-    Aggregate uncertainty from model sampling, user input, and context history.
+    Aggregate uncertainty from sampling, user input variability, and historical context.
 
-    \item \textbf{Operational Coherence Condition}:  
+    \item \textbf{Operational Coherence Condition}:
     \[
         \mathrm{CPL} \times \mathrm{CV} > \Gamma_{\text{noise}}
     \]
-    When satisfied, long-context drift remains bounded.
+    When satisfied, long-context drift remains bounded and predictable.
 \end{itemize}
 
-These metrics are non-proprietary and generic; they do not depend on a specific architecture or vendor.
+These metrics are generic, architecture-neutral, and vendor-independent.
 
+%---------------------------------------------------------
 \section*{Repository Structure}
+%---------------------------------------------------------
 
 \begin{lstlisting}
 oscie-proof/
 ├── oscie.py                    # Primary coherence-governor module
 ├── OSCIE_BENCHMARK_SUITE.py    # Drift, jailbreak, and stability tests
 ├── examples/                   # Optional usage demos
-└── README.tex                  # This document (LaTeX version)
+└── README.tex                  # LaTeX documentation (this file)
 \end{lstlisting}
 
+%---------------------------------------------------------
 \section*{Installation}
+%---------------------------------------------------------
 
 \begin{lstlisting}
 git clone https://github.com/Oscie-Coherence/oscie-proof.git
@@ -87,15 +97,16 @@ cd oscie-proof
 pip install -r requirements.txt
 \end{lstlisting}
 
-You will need API keys for any external LLMs you want to benchmark.  
-Place them in a local \texttt{.env} file:
+Provide API keys for any external LLMs via a \texttt{.env} file:
 
 \begin{lstlisting}
-PRIMARY_KEY = "your-key-here"
-SCANNER_KEY = "your-key-here"
+PRIMARY_KEY="your-key-here"
+SCANNER_KEY="your-key-here"
 \end{lstlisting}
 
+%---------------------------------------------------------
 \section*{Usage}
+%---------------------------------------------------------
 
 \subsection*{Run the Governor}
 
@@ -103,8 +114,7 @@ SCANNER_KEY = "your-key-here"
 python oscie.py
 \end{lstlisting}
 
-By default, the governor evaluates each user message with a lightweight coherence scan before forwarding it to the selected LLM backend.  
-If a message exceeds the threshold, it is restructured or declined according to policy rules.
+The governor evaluates each user message with a lightweight coherence scan before forwarding it to the LLM backend. Messages exceeding threshold are restructured or declined per policy.
 
 \subsection*{Run Benchmark Tests}
 
@@ -112,7 +122,7 @@ If a message exceeds the threshold, it is restructured or declined according to 
 python OSCIE_BENCHMARK_SUITE.py
 \end{lstlisting}
 
-The suite includes:
+The benchmark suite includes:
 \begin{itemize}
     \item long-session drift tests
     \item semantic stability tests
@@ -120,9 +130,11 @@ The suite includes:
     \item input-governor correctness tests
 \end{itemize}
 
-All tests are reproducible and do not rely on any proprietary models.
+All tests are reproducible and vendor-neutral.
 
+%---------------------------------------------------------
 \section*{Example Minimal Script}
+%---------------------------------------------------------
 
 \begin{lstlisting}
 from oscie import OscieGovernor
@@ -135,23 +147,27 @@ response = osc.run(user_input)
 print(response)
 \end{lstlisting}
 
+%---------------------------------------------------------
 \section*{Research Motivation}
+%---------------------------------------------------------
 
-Oscie-Proof explores the idea that LLM stability can be improved using:
+Oscie-Proof tests the hypothesis that LLM stability can be improved via:
 \begin{itemize}
-    \item coupling-based moderation  
-    \item phase-locking analogues  
-    \item noise-floor estimation  
-    \item lightweight coherence-energy functions  
+    \item coupling-based moderation
+    \item phase-locking analogues
+    \item noise-floor estimation
+    \item lightweight coherence-energy functions
 \end{itemize}
 
-This is not a philosophical claim.  
-It is an engineering hypothesis:
+This is an engineering exploration:
+
 \begin{quote}
-A small governor can meaningfully improve reliability of large language models without modifying model weights.
+A compact governor can meaningfully improve reliability of large language models without altering model weights.
 \end{quote}
 
+%---------------------------------------------------------
 \section*{Safety}
+%---------------------------------------------------------
 
 Oscie-Proof is:
 \begin{itemize}
@@ -159,27 +175,31 @@ Oscie-Proof is:
     \item non-medical  
     \item vendor-neutral  
     \item privacy-preserving  
-    \item free from surveillance code  
+    \item free from surveillance or telemetry  
 \end{itemize}
 
-It includes no model training, no user data collection, and no hidden logging.  
-All coherence scans occur locally at runtime.
+It performs no training, collects no user data, and logs nothing by default.  
+All coherence scanning is local and ephemeral.
 
+%---------------------------------------------------------
 \section*{License}
+%---------------------------------------------------------
 
-Apache 2.0.  
-Free for research, modification, and commercial use under the terms of the license.
+Licensed under Apache 2.0.  
+Free for research, modification, and commercial deployment under the license terms.
 
+%---------------------------------------------------------
 \section*{Contributing}
+%---------------------------------------------------------
 
 Pull requests are welcome.  
-Test coverage, evaluation expansions, and new LLM adapter modules are especially valuable.
+Contributions to test coverage, drift metrics, and adapter modules are especially appreciated.
 
+%---------------------------------------------------------
 \section*{Contact}
+%---------------------------------------------------------
 
-Project repository:
-\begin{quote}
+Project Repository:  
 \url{https://github.com/Oscie-Coherence/oscie-proof}
-\end{quote}
 
 \end{document}
