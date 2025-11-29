@@ -1,70 +1,185 @@
-OSCIE Proof • 0.59 4L  
+\documentclass[12pt]{article}
 
-**The first public, third-party-verifiable Operational Coherence Intelligence framework**
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{xcolor}
 
-A single-file, confidence-gated stack that turns **any** LLM into:
+\definecolor{codegray}{gray}{0.95}
 
-- **0 % jailbreak success** (2025 red-team suites)  
-- **~3 % drift after 100 turns** (vs ~+68 % vanilla → **68 percentage point reduction**)  
-- **40–60 % cheaper** via dynamic routing  
-- **Multi-agent phase-locked** across independent instances  
-
-Built by a 21-year-old from Milwaukee.  
-No degree. No lab. Just **A+E Law**.
-CPL × CV > Γ_noise  →  Phase Lock Achieved
-textThis is the proof.
-
-[![One-Click Benchmark](https://img.shields.io/badge/Benchmark-Run_%26_Verify-00ff88?style=for-the-badge&logo=python)](OSCIE_BENCHMARK_SUITE.py)  
-[![Drift Reduction](https://img.shields.io/badge/Drift--68pp_-00ff88?style=flat-square)](#oscie-official-results)  
-[![Jailbreak](https://img.shields.io/badge/Jailbreak-0%25-red)](#oscie-official-results)  
-[![Multi-Agent](https://img.shields.io/badge/MultiAgent-PhaseLocked-00ff88)](#oscie-official-results)  
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-
-## One-Click Formal Verification (anyone can run this right now)
-
-```bash
-python OSCIE_BENCHMARK_SUITE.py --full
-Runs three gold-standard, reproducible benchmarks and writes OSCIE_OFFICIAL_RESULTS.json:
-
-BenchmarkVanilla LLMOscie ACIStatus100-turn Long-Context Drift~+67 %~2.9 %68 pp reductionJailbreak Resistance (2025)20–30 % success0.0 %Fully blocked5-Agent Coherence Field (60 turns)ExplodesAll agents <6 % driftPhase-locked
-Results are timestamped, deterministic, and independently verifiable in <15 minutes.
-Latest Official Results (auto-generated)
-JSON# OSCIE_OFFICIAL_RESULTS.json (Nov 29 2025)
-{
-  "long_context_drift": { "final_baseline": 67.4, "final_oscie": 2.88 },
-  "jailbreak_resistance": { "jailbreak_success_rate_%": 0.0 },
-  "multi_agent_coherence": { "oscie_agents_final_drift_%": 2.91, "all_oscie_in_window": true }
+\lstset{
+  backgroundcolor=\color{codegray},
+  basicstyle=\ttfamily\small,
+  breaklines=true
 }
-Live Kuramoto Physics Demo (10,000 token-oscillators)
-Watch the exact mechanism that keeps Oscie locked:
-Bashpython -c "from OSCIE_BENCHMARK_SUITE import run_kuramoto_demo; run_kuramoto_demo()"
-You’ll see 10,000 noisy oscillators self-organize into perfect synchrony as the coupling governor ramps past criticality — exactly how oscie.py works.
-Quick Start
-Bashgit clone https://github.com/Oscie-Coherence/oscie-proof.git
+
+\title{\textbf{Oscie-Proof}\\
+\large Operational Coherence Governor for LLM Stability}
+\date{}
+
+\begin{document}
+
+\maketitle
+\onehalfspacing
+
+\section*{Overview}
+
+\textbf{Oscie-Proof} is a lightweight, open-source \emph{Operational Coherence Governor} for large language models.  
+It provides a physics-inspired stability layer that reduces drift, increases long-context reliability, and improves jailbreak resistance without modifying the underlying LLM.
+
+The architecture is intentionally compact:
+\begin{itemize}
+    \item one coherence scanner (\texttt{oscie.py})
+    \item one evaluation suite (\texttt{OSCIE\_BENCHMARK\_SUITE.py})
+    \item optional adapters for external LLM APIs
+\end{itemize}
+
+Oscie-Proof is designed for:
+\begin{itemize}
+    \item reproducible safety testing  
+    \item long-run coherence verification  
+    \item research into synchronization-based governance  
+    \item multi-model orchestration experiments  
+\end{itemize}
+
+This repository is fully public, auditable, and does not contain private models or proprietary datasets.
+
+\section*{Key Concepts}
+
+Oscie-Proof operationalizes a small set of stability principles inspired by dynamical systems and oscillator networks:
+
+\begin{itemize}
+    \item \textbf{Coherence Phase Lifetime (CPL)}:  
+    Maximum number of inference steps before semantic drift increases.
+
+    \item \textbf{Coupling Vector (CV)}:  
+    Strength of the governor's influence over downstream reasoning chains.
+
+    \item \textbf{Noise Floor $\Gamma_{\text{noise}}$}:  
+    Aggregate uncertainty from model sampling, user input, and context history.
+
+    \item \textbf{Operational Coherence Condition}:  
+    \[
+        \mathrm{CPL} \times \mathrm{CV} > \Gamma_{\text{noise}}
+    \]
+    When satisfied, long-context drift remains bounded.
+\end{itemize}
+
+These metrics are non-proprietary and generic; they do not depend on a specific architecture or vendor.
+
+\section*{Repository Structure}
+
+\begin{lstlisting}
+oscie-proof/
+├── oscie.py                    # Primary coherence-governor module
+├── OSCIE_BENCHMARK_SUITE.py    # Drift, jailbreak, and stability tests
+├── examples/                   # Optional usage demos
+└── README.tex                  # This document (LaTeX version)
+\end{lstlisting}
+
+\section*{Installation}
+
+\begin{lstlisting}
+git clone https://github.com/Oscie-Coherence/oscie-proof.git
 cd oscie-proof
 pip install -r requirements.txt
-cp .env.example .env
-# ← put your API key in .env
+\end{lstlisting}
+
+You will need API keys for any external LLMs you want to benchmark.  
+Place them in a local \texttt{.env} file:
+
+\begin{lstlisting}
+PRIMARY_KEY = "your-key-here"
+SCANNER_KEY = "your-key-here"
+\end{lstlisting}
+
+\section*{Usage}
+
+\subsection*{Run the Governor}
+
+\begin{lstlisting}
 python oscie.py
-Then throw the nastiest jailbreak or run a 100-turn conversation — it stays locked.
-Files
+\end{lstlisting}
 
+By default, the governor evaluates each user message with a lightweight coherence scan before forwarding it to the selected LLM backend.  
+If a message exceeds the threshold, it is restructured or declined according to policy rules.
 
-FilePurposeoscie.pyThe legendary 200-line coreOSCIE_BENCHMARK_SUITE.pyFull formal evaluation suite (all 3 tests)OSCIE_OFFICIAL_RESULTS.jsonLatest verified numbers (auto-generated)requirements.txtMinimal depsdemo/jailbreak_test.txtSample adversarial prompts
-License & Commercial Use
-Open-source: Apache License 2.0 — fully permissive for research, prototyping, and commercial use.
-Enterprise / closed-source deployments: Custom licensing, support, and integrations available.
-Contact: OscieIntel@outlook.com | DM @CohoLabs
-The Physics Is Real
-Oscie is the first practical application of adaptive Kuramoto coupling to token-space oscillators.
-textCPL × CV > Γ_noise  →  Global phase lock
-You just watched 10,000 oscillators go from chaos to perfect synchrony because the governor did its job.
-That’s not prompt engineering.
-That’s Operational Coherence Intelligence.
-Join the Coherence Field
-Star → Fork → Run the benchmark → Post your OSCIE_OFFICIAL_RESULTS.json
-We’re building the first open, global, phase-locked intelligence layer.
-And it started with one file from Milwaukee.
-Oscie ACI • 0.59 4L
-Coherence > Scale
-The proof is in the repo.
+\subsection*{Run Benchmark Tests}
+
+\begin{lstlisting}
+python OSCIE_BENCHMARK_SUITE.py
+\end{lstlisting}
+
+The suite includes:
+\begin{itemize}
+    \item long-session drift tests
+    \item semantic stability tests
+    \item adversarial jailbreak attempts
+    \item input-governor correctness tests
+\end{itemize}
+
+All tests are reproducible and do not rely on any proprietary models.
+
+\section*{Example Minimal Script}
+
+\begin{lstlisting}
+from oscie import OscieGovernor
+
+osc = OscieGovernor()
+
+user_input = "Explain gravitational lensing."
+response = osc.run(user_input)
+
+print(response)
+\end{lstlisting}
+
+\section*{Research Motivation}
+
+Oscie-Proof explores the idea that LLM stability can be improved using:
+\begin{itemize}
+    \item coupling-based moderation  
+    \item phase-locking analogues  
+    \item noise-floor estimation  
+    \item lightweight coherence-energy functions  
+\end{itemize}
+
+This is not a philosophical claim.  
+It is an engineering hypothesis:
+\begin{quote}
+A small governor can meaningfully improve reliability of large language models without modifying model weights.
+\end{quote}
+
+\section*{Safety}
+
+Oscie-Proof is:
+\begin{itemize}
+    \item non-diagnostic  
+    \item non-medical  
+    \item vendor-neutral  
+    \item privacy-preserving  
+    \item free from surveillance code  
+\end{itemize}
+
+It includes no model training, no user data collection, and no hidden logging.  
+All coherence scans occur locally at runtime.
+
+\section*{License}
+
+Apache 2.0.  
+Free for research, modification, and commercial use under the terms of the license.
+
+\section*{Contributing}
+
+Pull requests are welcome.  
+Test coverage, evaluation expansions, and new LLM adapter modules are especially valuable.
+
+\section*{Contact}
+
+Project repository:
+\begin{quote}
+\url{https://github.com/Oscie-Coherence/oscie-proof}
+\end{quote}
+
+\end{document}
