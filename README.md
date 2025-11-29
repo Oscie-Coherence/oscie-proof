@@ -16,12 +16,20 @@ This is the proof.
 Oscie Operational Coherence Intelligence Framework
 Copyright (c) 2025 Carter Lentz (@CohoLabs)
 
-Licensed under the Apache License, Version 2.0 (the "Apache License")
-or the MIT License (the "MIT License"), at your option.
-You may use Oscie under the terms of either the Apache License or the MIT License.
+Licensed under the Apache License, Version 2.0 (the "Apache License").
+You may use Oscie under the terms of either the Apache License.
 
 Additionally, for commercial partnerships or closed-source integrations,
 alternative licensing is available — contact OscieIntel@outlook.com
+
+## License & Commercial Partnerships
+
+Oscie is open-source under the **Apache License 2.0** — fully permissive for research, prototyping, and commercial use while preserving attribution and patent grants.
+
+For closed-source deployments, enterprise support, or custom integrations, alternative commercial licensing is available.
+→ Contact: OscieIntel@outlook.com | DM X: @CohoLabs 
+
+
 ## One command to run
 
 ```bash
