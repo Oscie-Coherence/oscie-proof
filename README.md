@@ -1,4 +1,5 @@
-Markdown# OSCIE Proof • 0.59 4L  
+OSCIE Proof • 0.59 4L  
+
 **The first public, third-party-verifiable Operational Coherence Intelligence framework**
 
 A single-file, confidence-gated stack that turns **any** LLM into:
