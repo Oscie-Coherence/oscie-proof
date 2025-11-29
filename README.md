@@ -1,47 +1,56 @@
 # **Oscie-Proof**
 ### *Operational Coherence Governor for LLM Stability*
 
-Oscie-Proof is a lightweight, open-source **Operational Coherence Governor** that wraps around any large-language model to stabilize long-context reasoning, reduce semantic drift, and improve jailbreak resistance — all **without modifying model weights**.
+Oscie-Proof is a lightweight, open-source **Operational Coherence Governor** for large language models.  
+It applies physics-inspired stability principles that reduce drift, increase long-context reliability, and improve jailbreak resistance — without modifying any model weights.
 
-The system is intentionally compact:
+The architecture is intentionally compact:
 
 - `oscie.py` — coherence scanner + governor  
-- `OSCIE_BENCHMARK_SUITE.py` — drift + jailbreak evaluation  
+- `OSCIE_BENCHMARK_SUITE.py` — drift, jailbreak, and coherence tests  
 - Optional adapters for external LLM APIs  
 
-The goal: **third-party-verifiable coherence**, not theory.
+Oscie-Proof is built for:
+
+- reproducible safety testing  
+- long-run coherence verification  
+- synchronization-based governance research  
+- multi-model orchestration experiments  
+
+This repository is fully public, auditable, and contains no proprietary models.
 
 ---
 
-## **Why Oscie-Proof Exists**
-Modern LLMs are powerful, but they’re noisy dynamical systems.  
-As context windows grow, drift grows. As prompts get complex, jailbreaks increase.
+## **Key Concepts**
 
-Oscie-Proof tests a simple engineering hypothesis:
+Oscie-Proof uses lightweight dynamical-systems–inspired metrics:
 
-> **A small, physics-inspired coherence governor can stabilize LLM behavior without retraining.**
+### **Coherence Phase Lifetime (CPL)**  
+Maximum number of inference steps before semantic drift begins to accelerate.
 
-It uses oscillator-style metrics to keep the reasoning chain phase-aligned:
+### **Coupling Vector (CV)**  
+How strongly the governor influences downstream reasoning stability.
 
-- **CPL** — Coherence Phase Lifetime  
-- **CV** — Coupling Vector  
-- **Γ_noise** — Noise Floor  
+### **Noise Floor (Γ_noise)**  
+Uncertainty from sampling variance, user input, and context history.
 
-Operational stability condition:
+### **Operational Coherence Condition**
 
 CPL × CV > Γ_noise
 
-If this holds, drift remains bounded.
+If this inequality holds, long-context drift remains bounded and controllable.
+
+These metrics are model-agnostic and vendor-neutral.
 
 ---
 
 ## **Repository Structure**
 
 oscie-proof/
-├── oscie.py # Primary coherence governor
-├── OSCIE_BENCHMARK_SUITE.py # Drift, jailbreak, and coherence tests
-├── examples/ # Minimal usage demos
-└── README.md # (This file)
+├── oscie.py # Primary coherence-governor module
+├── OSCIE_BENCHMARK_SUITE.py # Drift, jailbreak, and stability tests
+├── examples/ # Optional usage demos
+└── README.md # Documentation
 
 ---
 
@@ -51,22 +60,22 @@ oscie-proof/
 git clone https://github.com/Oscie-Coherence/oscie-proof.git
 cd oscie-proof
 pip install -r requirements.txt
-Create a .env file if you want to benchmark external LLMs:
+If you want to call external APIs, create a .env file:
 PRIMARY_KEY="your-key-here"
 SCANNER_KEY="your-key-here"
 Usage
 Run the Governor
 python oscie.py
-The governor scans user inputs with a lightweight coherence evaluator before forwarding them to the LLM.
-If coherence drops below threshold, the governor restructures or blocks the request.
-Run Benchmarks
+The governor performs a coherence scan on each incoming message before forwarding it to the LLM.
+Messages that violate coherence thresholds are blocked or restructured.
+Run Benchmark Tests
 python OSCIE_BENCHMARK_SUITE.py
-Benchmark suite includes:
-Long-session drift tests
-Semantic stability tests
-Adversarial jailbreak tests
-Input-governor correctness tests
-All tests are vendor-neutral and reproducible.
+The benchmark suite includes:
+long-session drift tests
+semantic stability tests
+adversarial jailbreak attempts
+input-governor correctness tests
+All tests are reproducible and portable.
 Minimal Example
 from oscie import OscieGovernor
 
@@ -77,12 +86,13 @@ response = osc.run(user_input)
 
 print(response)
 Research Motivation
-Oscie-Proof experiments with using dynamical-systems concepts to stabilize LLMs:
-Weak coupling
-Phase-locking analogues
-Noise-floor estimation
-Lightweight coherence-energy heuristics
-Not philosophy — engineering validation.
+Oscie-Proof explores the possibility that LLM stability can be improved via:
+weak coupling
+phase-locking analogues
+noise-floor estimation
+coherence-energy heuristics
+It is not philosophy — it is a testable engineering hypothesis:
+A small governor can meaningfully improve reliability of large language models without modifying internal weights.
 Safety
 Oscie-Proof is:
 non-diagnostic
@@ -90,17 +100,17 @@ non-medical
 vendor-neutral
 privacy-preserving
 telemetry-free
-No training.
-No collection of user data.
-No hidden logging.
-Coherence scans are local and ephemeral.
-
+It performs no training, collects no user data, and logs nothing by default.
+All scans are local and ephemeral.
 License
 Apache 2.0
-Free for research, commercial use, modification, and extension under the license.
+Free for research, modification, and commercial use under standard open-source terms.
 Contributing
-PRs welcome — especially around:
-test coverage
-drift metrics
-additional LLM backends
-benchmarking improvements
+Pull requests are welcome.
+High-value contributions include:
+additional drift tests
+new coupling heuristics
+backend adapters
+expanded evaluation datasets
+Project Repository
+https://github.com/Oscie-Coherence/oscie-proof
