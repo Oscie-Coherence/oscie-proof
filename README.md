@@ -13,6 +13,15 @@ No degree. No lab. Just A+E Law.
 **CPL × CV > Γ_noise**  
 This is the proof.
 
+Oscie Coherence Intelligence Framework
+Copyright (c) 2025 Carter Anderson (@CohoLabs)
+
+Licensed under the Apache License, Version 2.0 (the "Apache License")
+or the MIT License (the "MIT License"), at your option.
+You may use Oscie under the terms of either the Apache License or the MIT License.
+
+Additionally, for commercial partnerships or closed-source integrations,
+alternative licensing is available — contact OscieIntel@outlook.com
 ## One command to run
 
 ```bash
