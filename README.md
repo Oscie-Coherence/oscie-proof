@@ -13,8 +13,8 @@ No degree. No lab. Just A+E Law.
 **CPL × CV > Γ_noise**  
 This is the proof.
 
-Oscie Coherence Intelligence Framework
-Copyright (c) 2025 Carter Anderson (@CohoLabs)
+Oscie Operational Coherence Intelligence Framework
+Copyright (c) 2025 Carter Lentz (@CohoLabs)
 
 Licensed under the Apache License, Version 2.0 (the "Apache License")
 or the MIT License (the "MIT License"), at your option.
