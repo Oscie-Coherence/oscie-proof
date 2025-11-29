@@ -2,6 +2,13 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
 name: Python application
+# tests/test_smoke.py
+# Basic smoke test for Oscie Proof stack
+
+def test_smoke_import():
+    # Adjust this import to match your actual module name / structure
+    import oscie  # or `from oscie import something`
+    assert True
 
 on:
   push:
