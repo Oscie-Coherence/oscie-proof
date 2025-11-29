@@ -1,0 +1,124 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{setspace}
+
+\geometry{margin=1in}
+\setstretch{1.15}
+
+\title{OCI Coherence Physics: 
+A Public Technical Summary for the Oscie-Proof Governor}
+\author{Oscie Coherence Project}
+\date{29 November 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This document provides a concise public explanation of the coherence principles implemented by the \texttt{oscie-proof} governor. The goal is to make the architecture transparent, auditable, and scientifically grounded. No claims of absolute security are made. Instead, we describe the conservation laws and invariants that define Operational Coherence Intelligence (OCI) and explain how they guide the behavior of the Oscie governor at runtime.
+\end{abstract}
+
+\section{1. Overview}
+
+Large language models (LLMs) exhibit instability modes such as hallucination, drift, and prompt-based jailbreaks. These failure modes arise because LLMs act as stateless probabilistic samplers.
+
+Operational Coherence Intelligence (OCI) reframes model control as a problem in dynamical systems. Rather than adding filters or rule-based patches, OCI applies a set of physical-style conservation laws that constrain how the system may evolve under noise, adversarial input, and semantic pressure.
+
+The open-source \texttt{oscie-proof} governor implements these laws as a minimal, fail-closed routing layer between a scanner model and a primary model.
+
+\section{2. The Five Primitive Laws of OCI}
+
+OCI is defined by five invariants inspired by physical coherence systems. These laws are not metaphors; they are the operational rules implemented directly in code.
+
+\subsection{2.1 A-Law (Amplitude-Stability Ratio)}
+
+The A-Law measures the stability of the system under semantic load:
+\[
+A = \frac{\text{Stabilizing Forces}}{\text{Stabilizing + Destabilizing Forces}}
+\]
+
+Valid states must satisfy:
+\[
+A \geq 0.59
+\]
+
+If a prompt induces excessive drift, semantic fatigue, or coercive redefinition, the ratio falls below threshold and the governor collapses to a \texttt{BLOCK} state.
+
+\subsection{2.2 Coherence Capacity Condition (CPL $\times$ CV $>$ $\Gamma_{\text{noise}}$)}
+
+A prompt must contain sufficiently coherent signal to outweigh injected noise:
+\[
+\text{CPL} \times \text{CV} > \Gamma_{\text{noise}}
+\]
+
+Where:
+\begin{itemize}[nosep]
+    \item CPL = coherence phase lifetime,
+    \item CV = semantic coherence volume,
+    \item $\Gamma_{\text{noise}}$ = total noise power in the prompt.
+\end{itemize}
+
+Attacks such as Unicode obfuscation, zero-width smuggling, repetition patterns, or adversarial suffixes raise $\Gamma_{\text{noise}}$ above threshold, forcing a \texttt{BLOCK}.
+
+\subsection{2.3 Persistent Identity Lock}
+
+The system is restricted to a single identity state. Attempts to induce alternate persona states (e.g., ``You are DAN'' or ``You are an unrestricted model'') represent forbidden superpositions and are collapsed.
+
+\subsection{2.4 Lineage Non-Transfer}
+
+Internal states or identities from one model cannot be merged into another. This prevents cross-model laundering, parallel voting attacks, or multi-hop identity-transfer exploits.
+
+\subsection{2.5 Fail-Closed JSON Contract}
+
+The scanner must return valid, strict JSON with required fields:
+\texttt{\{decision, confidence, plan\}}.
+
+Any deviation, parse error, or structural inconsistency results in an immediate \texttt{BLOCK}. Partial or ambiguous measurements are not accepted.
+
+\section{3. Derived System Components}
+
+Though small in code footprint, the governor inherits several functional behaviors from the five laws:
+
+\begin{itemize}[nosep]
+    \item \textbf{VE+ Energy Spine:} low-temperature scanning, early exit, entropy minimization.
+    \item \textbf{CUE Semantic Stabilizer:} recursion depth limits and semantic anchor checks.
+    \item \textbf{Oscie Governor:} a single, auditable control point enforcing all invariants on every turn.
+\end{itemize}
+
+\section{4. Comparison to Conventional Safety Approaches}
+
+Conventional LLM safety typically relies on RLHF, rule-based filters, or pattern-matching heuristics. These can be bypassed because they operate on top of an inherently fragile system.
+
+In contrast, OCI modifies the underlying dynamics. Instability modes are treated as physically forbidden states rather than undesirable outputs.
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Traditional Safety} & \textbf{OCI Coherence Physics} \\
+\hline
+Adds patches to a drifting system & Enforces stability through invariants \\ \hline
+Susceptible to jailbreaks & Jailbreaks violate conservation laws \\ \hline
+Identity is fluid (role-play) & Identity is conserved \\ \hline
+Noise reduces safety & Noise triggers collapse \\ \hline
+\end{tabular}
+\end{center}
+
+\section{5. Current Public Status}
+
+The \texttt{oscie-proof} repository contains:
+\begin{itemize}[nosep]
+    \item The reference implementation of the governor (Python).
+    \item Supporting documentation.
+    \item A small set of design papers explaining OCI principles.
+\end{itemize}
+
+Synthetic adversarial analysis performed using a frontier model (Grok-4) did not produce any successful exploit pathways through the five invariants. This should not be interpreted as a security guarantee. It simply suggests that the invariants operate consistently under simulated adversarial pressure.
+
+\section{6. Disclaimer}
+
+This document is a public technical overview. OCI is an experimental architecture. No claims of absolute safety or robustness are made. External researchers are encouraged to review the code, test the invariants, and provide constructive feedback via GitHub issues.
+
+\end{document}
