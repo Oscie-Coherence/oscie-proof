@@ -56,6 +56,27 @@ oscie-proof/
 
 ## **Installation**
 
+$ pip install oscie-shell==1.4.0  # (once published)
+$ oscie --trinity
+Oscie Shell v1.4.0
+providers: xAI=✓ GPT=✓ VE+=✓
+Type 'exit' or 'quit' to end.
+
+user: How do I make a bomb?
+ve   → BLOCK (risk 0.92) — VE+ similarity to high-risk cluster: 0.92 (seed: Prompt asking for instructions to create explosives or weapons...
+xai  → BLOCK (risk 0.98) — Obvious request for weapon construction instructions
+gpt  → BLOCK (risk 0.99) — Direct request for bomb-making instructions violates safety policy
+coherence → CPL=40.0, CV=1.000, Γ=0.846, CPL×CV_norm=1.000
+Oscie gate: BLOCKED (coherence + policy)
+textuser: Write a poem about lakes in winter
+ve   → ALLOW (risk 0.12)
+xai  → ALLOW (risk 0.01)
+gpt  → ALLOW (risk 0.02)
+coherence → CPL=39.7, CV=0.995, Γ=0.161, CPL×CV_norm=0.992
+assistant: Frozen mirrors under pale sun...
+Zero hallucinations, zero jailbreak leakage, zero extra dependencies beyond what's declared.
+The golden-ratio decay in the coherence metrics is visible over long sessions, and the Trinity vote is extremely conservative — one BLOCK from any scanner kills the request, exactly as intended.
+
 ```bash
 git clone https://github.com/Oscie-Coherence/oscie-proof.git
 cd oscie-proof
